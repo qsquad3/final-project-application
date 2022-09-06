@@ -1,9 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for
+from prometheus_flask_exporter import PrometheusMetrics
 import psycopg2
 import os
 import names
 
 app = Flask(__name__)
+metrics = PrometheusMetrics(app)
 
 ## Database Configuration
 host = os.getenv("DB_HOST")

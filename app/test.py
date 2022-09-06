@@ -1,6 +1,6 @@
 import unittest
 
-class TestApp():
+class TestApp(unittest.TestCase):
 
     def test_app():
         pass
@@ -33,5 +33,7 @@ class TestApp():
     #     self.assertEqual(rv.status, '200 OK')
     #     self.assertEqual(rv.data, b'Hello World!\n')
 
-if __name__ == '__main__':
-    unittest.main()
+if __name__ == "__main__":
+    import xmlrunner
+
+    unittest.main(testRunner=xmlrunner.XMLTestRunner(output='test_reports'))

@@ -19,13 +19,10 @@ pipeline {
     stage('Build') {
       steps {
         echo 'Building'
-        sh """
-        pip install -r requirements.txt
-        """
       }
     }
 
-    stage('Lint') { // Run pylint against your code
+    stage('Lint') {
       steps {
         echo 'Linting'
         sh """
@@ -36,21 +33,31 @@ pipeline {
 
     stage('Test') {
       steps {
-        echo 'Testing'
-        sh 'python test.py'
+        echo 'Testing the application'
+        sh 'python3 test.py'
       } 
+    }
+
+    stage('Deploy')
+    {
+      steps {
+        echo "Deploying the application"
+        sh "sudo nohup python3 app.py > log.txt 2>&1 &"
+      }
     }
   }
 
   post {
     always {
-      echo 'This will always run'
+      echo 'The pipeline completed'
+      junit allowEmptyResults: true, testResults:'**/test_reports/*.xml'
     }
     success {
-      echo 'This will run only if successful'
+      echo "Flask Application Up and running!!"
     }
     failure {
-      echo "Send e-mail, when failed"
+      echo 'Build stage failed'
+      error('Stopping early…')
     }
     unstable {
       echo 'This will run only if the run was marked as unstable'
