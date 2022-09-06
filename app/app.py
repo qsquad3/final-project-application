@@ -1,11 +1,9 @@
-from flask import Flask, render_template, request, jsonify, redirect, url_for
-from time import sleep
+from flask import Flask, render_template, request, redirect, url_for
 import psycopg2
 import os
 import names
 
 app = Flask(__name__)
-
 
 ## Database Configuration
 host = os.getenv("DB_HOST")
@@ -13,7 +11,7 @@ database = os.getenv("DB_NAME")
 user = os.getenv("DB_USER")
 password = os.getenv("DB_PASSWD")
 
-conn = psycopg2.connect(
+connection = psycopg2.connect(
             host=host,
             database=database,
             user=user,
@@ -22,6 +20,9 @@ conn = psycopg2.connect(
 
 @app.route('/', methods=['GET','POST'])
 def index():
+    '''
+    Método index da aplicação.
+    '''
     if request.method == 'POST':
         message = request.form.get("message")
         app.logger.info(message)
@@ -31,77 +32,86 @@ def index():
 
 @app.route('/healthcheck', methods=['GET'])
 def health():
+    '''
+    Método de Health Check da aplicação.
+    '''
     try:
-        conn = psycopg2.connect(
+        connection = psycopg2.connect(
             host=host,
             database=database,
             user=user,
             password=password,
             connect_timeout=1
         )
-        conn.close()
+        connection.close()
         return '{ status: OK }'
     except:
         return False
-    
 
 @app.route('/limpar', methods=['GET'])
 def limpa():
+    '''
+    Método para limpar input da aplicação.
+    '''
     if request.method == 'GET':
-        conn = psycopg2.connect(
+        connection = psycopg2.connect(
             host=host,
             database=database,
             user=user,
             password=password
         )
 
-        db = conn.cursor()
+        db = connection.cursor()
         db.execute("DELETE from messages")
-        conn.commit()
+        connection.commit()
         db.close()
-        conn.close()
+        connection.close()
     return redirect(url_for('index'))
 
 
 @app.route('/popular', methods=['GET','POST'])
 def popular():
+    '''
+    Método para popular com dados genéricos a aplicação.
+    '''
     for i in range(1000):
         message = names.get_full_name()
         save(message)
     return redirect(url_for('index'))
        
-
 def save(message):
-    conn = psycopg2.connect(
+    '''
+    Método para salvar informações da aplicação.
+    '''
+    connection = psycopg2.connect(
             host=host,
             database=database,
             user=user,
             password=password
         )
-    cur = conn.cursor()
+    cur = connection.cursor()
     sql = "INSERT INTO messages(message) VALUES(%s);"
     cur.execute(sql, (message,))
-    conn.commit()
+    connection.commit()
     cur.close()
-    conn.close()
-
+    connection.close()
 
 def read():
-    conn = psycopg2.connect(
+    '''
+    Método para ler informações do BD da aplicação.
+    '''
+    connection = psycopg2.connect(
            host=host,
            database=database,
            user=user,
            password=password
        )
-    db = conn.cursor()
+    db = connection.cursor()
     db.execute("SELECT * FROM messages")
     data = db.fetchall()
     db.close()
-    conn.close()
+    connection.close()
     return data
-
-
 
 if __name__ == "__main__":
     app.run(debug=False, host="0.0.0.0", port=8500)
-
