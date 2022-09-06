@@ -1,4 +1,3 @@
-# Jenkins with GitHub Integration Pipeline Example
 pipeline {
   agent { docker { image 'python:3.7.2' } }
 
