@@ -18,23 +18,29 @@ pipeline {
 
     stage('Build') {
       steps {
-        echo 'Building'
+        echo "Building"
+        agent {
+          docker {
+            image 'python:2-alpine'
+          }
+        }
+        steps {
+          sh 'python -m py_compile sources/add2vals.py sources/calc.py'
+        }
       }
     }
 
     stage('Lint') {
       steps {
-        echo 'Linting'
-        sh """
-        pylint **/*.py
-        """
+        echo "Linting"
+        sh 'pylint **/*.py'
       }
     }
 
     stage('Test') {
       steps {
-        echo 'Testing the application'
-        sh 'python3 test.py'
+        echo "Testing the application"
+        sh 'python test.py'
       } 
     }
 
@@ -42,7 +48,6 @@ pipeline {
     {
       steps {
         echo "Deploying the application"
-        sh "sudo nohup python3 app.py > log.txt 2>&1 &"
       }
     }
   }
