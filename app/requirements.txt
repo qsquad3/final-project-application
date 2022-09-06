@@ -2,3 +2,4 @@ Flask==2.0.3
 psycopg2>=2.8
 prometheus-client==0.14.1
 names==0.3.0
+pytest==7.1.3
