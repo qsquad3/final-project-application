@@ -17,14 +17,14 @@ pipeline {
     }
 
     stage('Build') {
-      echo "Building"
       agent {
         docker {
           image 'python:2-alpine'
         }
       }
       steps {
-        sh 'python -m py_compile sources/add2vals.py sources/calc.py'
+        echo "Building"
+        sh 'python -m py_compile app/app.py'
       }
     }
 
