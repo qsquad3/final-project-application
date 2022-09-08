@@ -8,6 +8,10 @@ pipeline {
 
   agent any
 
+  environment {
+    NEW_VERSION = '1.0.0'
+  }
+
   stages {
 
     stage('Checkout') {
@@ -24,6 +28,7 @@ pipeline {
       }
       steps {
         echo "Building"
+        echo "Building version ${NEW_VERSION}"
         sh 'python -m py_compile app/app.py'
       }
     }

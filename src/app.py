@@ -4,6 +4,10 @@ import psycopg2
 import os
 import names
 
+def create_app():
+    app = Flask(__name__)
+    return app
+
 app = Flask(__name__)
 metrics = PrometheusMetrics(app)
 
@@ -30,7 +34,6 @@ def index():
         app.logger.info(message)
         save(message)
     return render_template('index.html', data=read())
-
 
 @app.route('/healthcheck', methods=['GET'])
 def health():
