@@ -54,9 +54,9 @@ jobs:
         run: |
           ls
           docker-compose -f pgsql-to-cicd.yml ps
-          ifconfig
-          netstat -pan 
-          whereis curl
+          netstat -pan |grep 8181
+          sleep 2
           curl -s http://127.0.0.1:8181/healthcheck
+          sleep 2
   
           
