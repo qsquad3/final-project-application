@@ -58,7 +58,7 @@ jobs:
         #          exit 1
         #  fi
         run: |
-        ls
-        curl http://localhost:8500/healthcheck
+          ls
+          curl http://localhost:8500/healthcheck
 
           
