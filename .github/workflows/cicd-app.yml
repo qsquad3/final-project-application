@@ -16,7 +16,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  job1:
+  build_official_image:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -32,35 +32,24 @@ jobs:
           docker build -t app .
           docker tag app qsquad3/app
           docker push qsquad3/app
-  job2:
-    needs: job1
+  check_image:
+    needs: build_official_image
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3    
-      - name: Build TEST Image
+      - name: HealthCheck TEST Image
         run: |
           sed -i 's/10.0.3.14/pgsql/' Dockerfile
           docker build . -t app-quode
           docker-compose -f pgsql-to-cicd.yml up -d
           docker-compose -f pgsql-to-cicd.yml down
           docker-compose -f pgsql-to-cicd.yml up -d
-  job3:
-    needs: job2
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3  
-      - name: HealthCheck TEST Image
-        #run: |
-        #  if [ "`curl -s http://localhost:8500/healthcheck|awk {'print$3'}`" = "OK" ]
-        #      then
-        #          echo "TESTE [ OK ]"
-        #          exit 0
-        #  else
-        #          echo "ERROR [ ERROR ]"
-        #          exit 1
-        #  fi
-        run: |
-          ls
-          curl http://localhost:8500/healthcheck
 
+          if [ "`curl -s http://localhost:8500/healthcheck|awk {'print$3'}`" = "OK" ]
+              then
+                  exit 0
+          else
+                  exit 1
+          fi
+  
           
