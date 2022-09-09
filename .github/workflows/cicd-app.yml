@@ -37,16 +37,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3    
-      - name: HealthCheck TEST Image
+      - name: Building TEST Image
         run: |
           sed -i 's/10.0.3.14/pgsql/' Dockerfile
           docker build . -t app-quode
           docker-compose -f pgsql-to-cicd.yml up -d
-          docker-compose -f pgsql-to-cicd.yml down
-          docker-compose -f pgsql-to-cicd.yml up -d
-
+      - name: Health Chek
+        run: |
           if [ "`curl -s http://localhost:8500/healthcheck|awk {'print$3'}`" = "OK" ]
               then
+                  echo "[  OK  ]"
                   exit 0
           else
                   exit 1
