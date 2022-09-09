@@ -11,4 +11,4 @@ ENV DB_PASSWD=password
 
 RUN pip install  --no-cache-dir -r src/requirements.txt
 
-CMD ["python","app.py"]
+CMD ["python","/usr/src/app/app.py"]
