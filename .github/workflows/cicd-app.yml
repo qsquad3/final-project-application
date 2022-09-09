@@ -53,5 +53,5 @@ jobs:
                   exit 1
           fi
           sleep 2
-  
+        shell: bash
           
