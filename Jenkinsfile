@@ -21,29 +21,24 @@ pipeline {
     }
 
     stage('Build') {
-      agent {
-        docker {
-          image 'python:2-alpine'
-        }
-      }
       steps {
         echo "Building"
         echo "Building version ${NEW_VERSION}"
-        sh 'python -m py_compile app/app.py'
+        sh 'pip install -r requirements.txt'
       }
     }
 
     stage('Lint') {
       steps {
         echo "Linting"
-        sh 'pylint **/*.py'
+        // sh 'pylint **/*.py'
       }
     }
 
     stage('Test') {
       steps {
         echo "Testing the application"
-        sh 'python test.py'
+        // sh 'python test.py'
       } 
     }
 
@@ -58,7 +53,7 @@ pipeline {
   post {
     always {
       echo 'The pipeline completed'
-      junit allowEmptyResults: true, testResults:'**/test_reports/*.xml'
+      // junit allowEmptyResults: true, testResults:'**/test_reports/*.xml'
     }
     success {
       echo "Flask Application Up and running!!"
