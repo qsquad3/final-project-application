@@ -9,6 +9,6 @@ ENV DB_NAME=user
 ENV DB_USER=user
 ENV DB_PASSWD=password
 
-RUN pip install  --no-cache-dir -r requirements.txt
+RUN pip install  --no-cache-dir -r src/requirements.txt
 
 CMD ["python","app.py"]
