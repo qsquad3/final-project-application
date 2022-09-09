@@ -30,4 +30,4 @@ jobs:
         #  docker push qsquad3/app
         run: |
           pwd
-          ls
+          ls -la
