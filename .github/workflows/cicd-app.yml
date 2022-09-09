@@ -45,7 +45,7 @@ jobs:
       - name: Health Check
         run: |
           sleep 2
-          if [ "`curl -s http://localhost:8500/healthcheck|awk {'print$3'}`" = "OK" ]
+          if [ "`curl -s http://localhost:8181/healthcheck|awk {'print$3'}`" = "OK" ]
               then
                   echo "[  OK  ]"
                   exit 0
