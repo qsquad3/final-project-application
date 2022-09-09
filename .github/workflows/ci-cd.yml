@@ -23,8 +23,10 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Buil image APP-Quode
+        #run: |
+        #  docker login -u qsquad3 -p dckr_pat_c6BWxdwtDLByUnP8f8JxD76SxWU
+        #  docker build -t app .
+        #  docker tag app qsquad3/app
+        #  docker push qsquad3/app
         run: |
-          docker login -u qsquad3 -p dckr_pat_c6BWxdwtDLByUnP8f8JxD76SxWU
-          docker build -t app .
-          docker tag app qsquad3/app
-          docker push qsquad3/app
+          pwd
