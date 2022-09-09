@@ -43,20 +43,15 @@ jobs:
           docker build . -t app-quode-teste
           docker-compose -f pgsql-to-cicd.yml up -d
       - name: Health Check
-        #run: |
-        #  if [ "`curl -s http://localhost:8500/healthcheck|awk {'print$3'}`" = "OK" ]
-        #      then
-        #          echo "[  OK  ]"
-        #          exit 0
-        #  else
-        #          exit 1
-        #  fi
         run: |
-          ls
-          docker-compose -f pgsql-to-cicd.yml ps
-          netstat -pan |grep 8181
           sleep 2
-          curl -s http://127.0.0.1:8181/healthcheck
+          if [ "`curl -s http://localhost:8500/healthcheck|awk {'print$3'}`" = "OK" ]
+              then
+                  echo "[  OK  ]"
+                  exit 0
+          else
+                  exit 1
+          fi
           sleep 2
   
           
