@@ -15,6 +15,7 @@ services:
       networks:
          - lan
    app-quode:
+      restart: always
       container_name: "app-quode"
       image: app-quode
       ports: 
