@@ -42,7 +42,7 @@ jobs:
           sed -i 's/10.0.3.14/pgsql/' Dockerfile
           docker build . -t app-quode
           docker-compose -f pgsql-to-cicd.yml up -d
-      - name: Health Chek
+      - name: Health Check
         #run: |
         #  if [ "`curl -s http://localhost:8500/healthcheck|awk {'print$3'}`" = "OK" ]
         #      then
@@ -54,6 +54,9 @@ jobs:
         run: |
           ls
           docker-compose -f pgsql-to-cicd.yml ps
+          ifconfig
+          netstat -pan 
+          whereis curl
           curl -s http://127.0.0.1:8500/healthcheck
   
           
