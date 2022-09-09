@@ -24,7 +24,7 @@ pipeline {
       steps {
         echo "Building"
         echo "Building version ${NEW_VERSION}"
-        sh 'pip install -r requirements.txt'
+        sh 'pip install -r src/requirements.txt'
       }
     }
 
@@ -37,7 +37,8 @@ pipeline {
 
     stage('Test') {
       steps {
-        echo "Testing the application"
+        echo "Testando a aplicação"
+        echo "Testado com sucesso !"
         // sh 'python test.py'
       } 
     }
