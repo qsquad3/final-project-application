@@ -19,9 +19,9 @@ services:
    app-quode:
       restart: always
       container_name: "app-quode"
-      image: app-quode
+      image: app-quode-teste
       ports: 
-         - "8500:8500"
+         - "8181:8000"
       networks:
           - lan
 networks:

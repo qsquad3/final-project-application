@@ -40,7 +40,7 @@ jobs:
       - name: Building TEST Image
         run: |
           sed -i 's/10.0.3.14/pgsql/' Dockerfile
-          docker build . -t app-quode
+          docker build . -t app-quode-teste
           docker-compose -f pgsql-to-cicd.yml up -d
       - name: Health Check
         #run: |
@@ -57,6 +57,6 @@ jobs:
           ifconfig
           netstat -pan 
           whereis curl
-          curl -s http://127.0.0.1:8500/healthcheck
+          curl -s http://127.0.0.1:8181/healthcheck
   
           
