@@ -42,6 +42,8 @@ jobs:
           sed -i 's/10.0.3.14/pgsql/' Dockerfile
           docker build . -t app-quode
           docker-compose -f pgsql-to-cicd.yml up -d
+          docker-compose -f pgsql-to-cicd.yml down
+          docker-compose -f pgsql-to-cicd.yml up -d
   job3:
     needs: job2
     runs-on: ubuntu-latest

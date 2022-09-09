@@ -7,11 +7,13 @@ services:
       image: postgres:10
       volumes:
          - ./base-pgsql-cicd.sql:/docker-entrypoint-initdb.d/database.sql
+         - db:/var/lib/postgresql/data
       ports:
          - "5432:5432"
       environment:
          - POSTGRES_USER=user
          - POSTGRES_PASSWORD=password
+
       networks:
          - lan
    app-quode:
@@ -25,3 +27,6 @@ services:
 networks:
   lan:
     driver: bridge
+volumes:
+  db:
+    driver: local
