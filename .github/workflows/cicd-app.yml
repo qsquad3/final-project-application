@@ -28,5 +28,7 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Build APP Image
         run: |
-          pwd
-          ls -la
+          docker login -u qsquad3 -p ${{ secrets.TOKEN_DKR_HUB }}
+          docker build -t app .
+          docker tag app qsquad3/app
+          docker push qsquad3/app
