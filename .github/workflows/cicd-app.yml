@@ -6,9 +6,13 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "main" ]
+    branches:
+      - main
   pull_request:
-    branches: [ "main" ]
+    branches: ["dev", "staging", "prod"]
+    paths-ignore:
+      - ".github/**/*.yml"
+      - ".gitignore"
 
   # Allows you to run this workflow manually from the Actions tab#
   workflow_dispatch:
@@ -32,11 +36,17 @@ jobs:
           docker build -t app .
           docker tag app qsquad3/app
           docker push qsquad3/app
+      - name: Create Tag
+        id: create_tag
+        uses: jaywcjlove/create-tag-action@main
+        with:
+          test: '[R|r]elease[d]\s+[v|V]\d(\.\d+){0,2}'
+
   check_image:
     needs: build_official_image
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3    
+      - uses: actions/checkout@v3
       - name: Building TEST Image
         run: |
           sed -i 's/10.0.3.14/pgsql/' Dockerfile
@@ -54,4 +64,3 @@ jobs:
                   exit 1
           fi
           sleep 2
-          
