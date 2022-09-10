@@ -36,11 +36,17 @@ jobs:
           docker build -t app .
           docker tag app qsquad3/app
           docker push qsquad3/app
-      - name: Create Tag
-        id: create_tag
-        uses: jaywcjlove/create-tag-action@main
+      - name: Bump version and push tag
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.0
         with:
-          test: '[R|r]elease[d]\s+[v|V]\d(\.\d+){0,2}'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create a GitHub release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ steps.tag_version.outputs.new_tag }}
+          name: Release ${{ steps.tag_version.outputs.new_tag }}
+          body: ${{ steps.tag_version.outputs.changelog }}
 
   check_image:
     needs: build_official_image
