@@ -61,7 +61,8 @@ jobs:
       - name: Health Check
         shell: bash
         run: |
-          sleep 2
+          docker-compose -f pgsql-to-cicd.yml ps
+          sleep 5
           if [ "`curl -s http://localhost:8181/healthcheck|awk {'print$3'}`" = "OK" ]
               then
                   echo "[  OK  ]"
