@@ -34,7 +34,7 @@ jobs:
         run: |
           docker login -u qsquad3 -p ${{ secrets.TOKEN_DKR_HUB }}
           docker build -t app:dev .
-          docker tag app qsquad3/app:dev
+          docker tag app:dev qsquad3/app:dev
           docker push qsquad3/app:dev
       - name: Bump version and push tag
         id: tag_version
