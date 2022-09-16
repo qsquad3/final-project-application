@@ -1,28 +1,9 @@
-# APLICAÇÃO PYTHON
+# APLICAÇÃO QUODE
 
-**Diretório da aplicação**: /app
+Aplicação utilizada como docker container no servidor kubernetes
+Ao dar um PUSH na main, um CI/CD é executado via GitHub Action para gerar uma nova versão da imagem e publicar no DockerHUB
 
-**Arquivo principal da aplicação**: /app/app.py
+O mesmo serve para branch "dev"
 
-**Dockerfile da aplicação**: /app/Dockerfile
+Durante o CI/CD, há um teste da imagem gerada, efetuando um teste em um banco similar ao utilizado na aplicação oficial
 
-**Arquivo para criação da tabela do banco de dados**: create_database.sql
-
-
-## Instanciando a aplicação via docker-compose:
-```
-git clone https://github.com/phwebcloud/python_app.git
-cd python_app/
-docker-compose up --build -d
- ```
-
-Acessar a aplicação na porta 80 do servidor
-
-## Variáveis ambiente para conexão com banco de dados:
-host = os.getenv("***DB_HOST***")
-
-database = os.getenv("***DB_NAME***")
-
-user = os.getenv("***DB_USER***")
-
-password = os.getenv("***DB_PASSWD***")
