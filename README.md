@@ -26,8 +26,11 @@ Arquivo para criação da tabela do banco de dados: create_database.sql
 - As informações de conexão com o banco de dados estão sendo passadas para a aplicação como variável ambiente.
 
 host = os.getenv("DB_HOST")
+
 database = os.getenv("DB_NAME")
+
 user = os.getenv("DB_USER")
+
 password = os.getenv("DB_PASSWD")
 
 ## Export de métricas
