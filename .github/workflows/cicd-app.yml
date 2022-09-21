@@ -9,7 +9,7 @@ on:
     branches:
       - main
   pull_request:
-    branches: ["prod"]
+    branches: ["dev", "staging", "prod"]
     paths-ignore:
       - ".github/**/*.yml"
       - ".gitignore"

@@ -1,7 +1,7 @@
 # APLICAÇÃO QUODE
 
 Aplicação utilizada como docker container no servidor kubernetes.
-Ao dar um PUSH nas branches Dev ou Staging, um job é executado via GitHub Action para gerar uma nova versão da imagem e publicar no DockerHUB. O mesmo acontece ao realizar um PULL RESQUEST na branch de Prod.
+Ao dar um PUSH nas branch Main, um job é executado via GitHub Action para gerar uma nova versão da imagem e publicar no DockerHUB. O mesmo acontece ao realizar um PULL RESQUEST nas branches Dev, Staging ou Prod.
 
 ## Continuos Integration
 
