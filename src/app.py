@@ -67,7 +67,7 @@ def limpa():
         )
 
         db = connection.cursor()
-        db.execute("DELETE from messages")
+        db.execute("DELETE from meessagesdev")
         connection.commit()
         db.close()
         connection.close()
@@ -95,7 +95,7 @@ def save(message):
             password=password
         )
     cur = connection.cursor()
-    sql = "INSERT INTO messages(message) VALUES(%s);"
+    sql = "INSERT INTO meessagesdev(message) VALUES(%s);"
     cur.execute(sql, (message,))
     connection.commit()
     cur.close()
@@ -112,7 +112,7 @@ def read():
            password=password
        )
     db = connection.cursor()
-    db.execute("SELECT * FROM messages")
+    db.execute("SELECT * FROM meessagesdev")
     data = db.fetchall()
     db.close()
     connection.close()
