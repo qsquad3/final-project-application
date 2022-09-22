@@ -16,12 +16,14 @@ host = os.getenv("DB_HOST")
 database = os.getenv("DB_NAME")
 user = os.getenv("DB_USER")
 password = os.getenv("DB_PASSWD")
+port = os.getenv("DB_PORT")
 
 connection = psycopg2.connect(
             host=host,
             database=database,
             user=user,
-            password=password
+            password=password,
+            port=port
         )
 
 @app.route('/', methods=['GET','POST'])
@@ -46,6 +48,7 @@ def health():
             database=database,
             user=user,
             password=password,
+            port=port,
             connect_timeout=1
         )
         connection.close()
@@ -63,7 +66,8 @@ def limpa():
             host=host,
             database=database,
             user=user,
-            password=password
+            password=password,
+            port=port
         )
 
         db = connection.cursor()
@@ -92,7 +96,8 @@ def save(message):
             host=host,
             database=database,
             user=user,
-            password=password
+            password=password,
+            port=port
         )
     cur = connection.cursor()
     sql = "INSERT INTO messagesdev(message) VALUES(%s);"
@@ -109,7 +114,8 @@ def read():
            host=host,
            database=database,
            user=user,
-           password=password
+           password=password,
+           port=port
        )
     db = connection.cursor()
     db.execute("SELECT * FROM messagesdev")
