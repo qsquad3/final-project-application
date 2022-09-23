@@ -9,7 +9,11 @@ Ao dar um PUSH nas branch Main, um job é executado via GitHub Action para gerar
 
 - A branch de PROD está protegida de commits diretos. Só será possível realizar commits para a branch PROD através de Merge Request.
 
-- Tags repetidas estão sendo ignoradas pelo Job. Dentro do step de criação do build da imagem docker (build_official_image), é realizada a criação da tag no step (Bump version and push tag), impossibilitando que se repitam.
+- Tags repetidas estão sfendo ignoradas pelo Job. Dentro do step de criação do build da imagem docker (build_official_image), é realizada a criação da tag no step (Bump version and push tag), impossibilitando que se repitam.
+
+## Arquitetura
+
+![Draw-ApplicationQuode](architecture/Draw-ApplicationQuode.png)
 
 ## Aplicação Python
 
