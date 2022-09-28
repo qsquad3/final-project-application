@@ -3,3 +3,4 @@ psycopg2>=2.8
 prometheus-client==0.14.1
 names==0.3.0
 prometheus-flask-exporter==0.18.7
+ddtrace
