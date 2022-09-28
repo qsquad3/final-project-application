@@ -39,6 +39,6 @@ password = os.getenv("DB_PASSWD")
 
 ## Export de métricas
 
-- As métricas da aplicação sao exportadas via biblioteca:
+- As métricas da aplicação sao exportadas via biblioteca.:
 
 ```from prometheus_flask_exporter import PrometheusMetrics```
