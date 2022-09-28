@@ -17,7 +17,7 @@ Ao dar um PUSH nas branch Main, um job é executado via GitHub Action para gerar
 
 ## Aplicação Python
 
-Diretório da aplicação : /src
+Diretório da aplicação: /src
 
 Arquivo principal da aplicação: /src/app.py
 
