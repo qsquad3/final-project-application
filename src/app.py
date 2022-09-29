@@ -71,7 +71,7 @@ def limpa():
         )
 
         db = connection.cursor()
-        db.execute("DELETE from messages")
+        db.execute("DELETE from messagesdev")
         connection.commit()
         db.close()
         connection.close()
@@ -100,7 +100,7 @@ def save(message):
             port=port
         )
     cur = connection.cursor()
-    sql = "INSERT INTO messages(message) VALUES(%s);"
+    sql = "INSERT INTO messagesdev(message) VALUES(%s);"
     cur.execute(sql, (message,))
     connection.commit()
     cur.close()
@@ -118,11 +118,11 @@ def read():
            port=port
        )
     db = connection.cursor()
-    db.execute("SELECT * FROM messages")
+    db.execute("SELECT * FROM messagesdev")
     data = db.fetchall()
     db.close()
     connection.close()
     return data
 
 if __name__ == "__main__":
-    app.run(debug=False, host="0.0.0.0", port=8500)
+    app.run(debug=False, host="0.0.0.0", port=8501)
