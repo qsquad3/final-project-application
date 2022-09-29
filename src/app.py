@@ -16,12 +16,14 @@ host = os.getenv("DB_HOST")
 database = os.getenv("DB_NAME")
 user = os.getenv("DB_USER")
 password = os.getenv("DB_PASSWD")
+port = os.getenv("DB_PORT")
 
 connection = psycopg2.connect(
             host=host,
             database=database,
             user=user,
-            password=password
+            password=password,
+            port=port
         )
 
 @app.route('/', methods=['GET','POST'])
@@ -46,6 +48,7 @@ def health():
             database=database,
             user=user,
             password=password,
+            port=port,
             connect_timeout=1
         )
         connection.close()
@@ -63,11 +66,12 @@ def limpa():
             host=host,
             database=database,
             user=user,
-            password=password
+            password=password,
+            port=port
         )
 
         db = connection.cursor()
-        db.execute("DELETE from messages")
+        db.execute("DELETE from messagesdev")
         connection.commit()
         db.close()
         connection.close()
@@ -92,10 +96,11 @@ def save(message):
             host=host,
             database=database,
             user=user,
-            password=password
+            password=password,
+            port=port
         )
     cur = connection.cursor()
-    sql = "INSERT INTO messages(message) VALUES(%s);"
+    sql = "INSERT INTO messagesdev(message) VALUES(%s);"
     cur.execute(sql, (message,))
     connection.commit()
     cur.close()
@@ -109,14 +114,15 @@ def read():
            host=host,
            database=database,
            user=user,
-           password=password
+           password=password,
+           port=port
        )
     db = connection.cursor()
-    db.execute("SELECT * FROM messages")
+    db.execute("SELECT * FROM messagesdev")
     data = db.fetchall()
     db.close()
     connection.close()
     return data
 
 if __name__ == "__main__":
-    app.run(debug=False, host="0.0.0.0", port=8000)
+    app.run(debug=False, host="0.0.0.0", port=8501)

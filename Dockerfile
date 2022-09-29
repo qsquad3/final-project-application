@@ -11,4 +11,4 @@ ENV DB_PASSWD=password
 
 RUN pip install  --no-cache-dir -r src/requirements.txt
 
-CMD ["python","src/app.py"]
+CMD ["ddtrace-run","python","src/app.py"]

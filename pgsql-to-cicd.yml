@@ -21,7 +21,7 @@ services:
       container_name: "app-quode"
       image: app-quode-teste
       ports: 
-         - "8181:8000"
+         - "8181:8501"
       networks:
           - lan
 networks:
